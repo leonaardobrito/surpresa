@@ -12,7 +12,7 @@
     :root {
       --rose:    #e8405a;
       --blush:   #fce4ec;
-      --cream:   #fff8f0;
+      --cream:   #2a2a2a;
       --warm:    #6b3a3a;
       --accent:  #f48fb1;
     }
@@ -36,7 +36,6 @@
       position: relative;
     }
 
-    /* corações flutuantes de fundo */
     .hearts-bg {
       position: absolute; inset: 0;
       pointer-events: none;
@@ -139,7 +138,6 @@
     }
     .btn-nao:hover { color: #a06060; }
 
-    /* ── TELA TE AMO ── */
     #page-teamo {
       display: none;
       flex-direction: column;
@@ -181,7 +179,6 @@
       to   { opacity: 1; transform: scale(1); }
     }
 
-    /* ── TELA NÃO ── */
     #page-nao {
       display: none;
       flex-direction: column;
@@ -254,13 +251,12 @@
     ou se for um arquivo local salvo na mesma pasta do HTML:
        src="reacao.jpg"
   -->
-  <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" alt="reação" />
+  <img src="https://media.tenor.com/kkrBcKeU7TsAAAAM/sad-monkey-wriogifs.gif" alt="reação" />
   <p>tá bom então... 🥲</p>
   <button class="btn-voltar" onclick="goBack()">← deixa eu tentar de novo</button>
 </div>
 
-<script>
-  // ── corações de fundo animados ──
+<script> 
   const container = document.getElementById('hearts');
   const emojis = ['💗','💓','💖','💕','🌸','✨'];
   for (let i = 0; i < 18; i++) {
