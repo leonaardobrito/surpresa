@@ -24,7 +24,6 @@
       overflow: hidden;
     }
 
-    /* ── TELA PRINCIPAL ── */
     #page-main {
       display: flex;
       flex-direction: column;
@@ -231,7 +230,7 @@
   <div class="buttons">
     <button class="btn-sim"  onclick="goSim()">sim ❤️</button>
     <button class="btn-obvio" onclick="goObvio()">ÓBVIO 💍</button>
-    <button class="btn-nao"  onclick="goNao()">Não, tô de boas.</button>
+    <button class="btn-nao"  onclick="goNao(this)">Não, tô de boas.</button>
   </div>
 </div>
 
@@ -245,12 +244,6 @@
 
 <!-- ══════════ TELA: NÃO ══════════ -->
 <div id="page-nao">
-  <!--
-    👇 Cole aqui o link da sua imagem, por exemplo:
-       src="https://i.imgur.com/SEU-LINK.jpg"
-    ou se for um arquivo local salvo na mesma pasta do HTML:
-       src="reacao.jpg"
-  -->
   <img src="https://media.tenor.com/kkrBcKeU7TsAAAAM/sad-monkey-wriogifs.gif" alt="reação" />
   <p>tá bom então... 🥲</p>
   <button class="btn-voltar" onclick="goBack()">← deixa eu tentar de novo</button>
@@ -282,15 +275,29 @@
   }
 
   function goObvio() {
-    // abre a busca no Google em nova aba
     window.open(
       'https://www.google.com/search?q=Lugares+mais+bonitos+para+casar+com+o+amor+da+minha+vida',
       '_blank'
     );
   }
 
-  function goNao() {
-    show('page-nao');
+  let naoClicks = 0;
+
+  function goNao(btn) {
+    naoClicks++;
+    if (naoClicks < 6) {
+      const maxX = window.innerWidth  - btn.offsetWidth  - 20;
+      const maxY = window.innerHeight - btn.offsetHeight - 20;
+      btn.style.position = 'fixed';
+      btn.style.left = Math.random() * maxX + 'px';
+      btn.style.top  = Math.random() * maxY + 'px';
+    } else {
+      naoClicks = 0;
+      btn.style.position = '';
+      btn.style.left = '';
+      btn.style.top  = '';
+      show('page-nao');
+    }
   }
 
   function goBack() {
