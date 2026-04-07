@@ -276,21 +276,41 @@
 
   function goObvio() {
     window.open(
-      'https://www.google.com/search?q=Lugares+mais+bonitos+para+casar+com+o+amor+da+minha+vida',
+      'https://www.google.com/search?q=Lugares+mais+bonitos+para+casar+com+o+amor+da+minha+vida&tbm=isch',
       '_blank'
     );
   }
 
-  let naoClicks = 0;
+  
+let naoClicks = 0;
 
   function goNao(btn) {
     naoClicks++;
-    if (naoClicks < 6) {
-      const maxX = window.innerWidth  - btn.offsetWidth  - 20;
-      const maxY = window.innerHeight - btn.offsetHeight - 20;
+    if (naoClicks < 5) {
+      const occupied = [...document.querySelectorAll('#page-main *')]
+        .filter(el => el !== btn && el.offsetWidth > 0)
+        .map(el => {
+          const r = el.getBoundingClientRect();
+          return { x1: r.left - 20, y1: r.top - 20, x2: r.right + 20, y2: r.bottom + 20 };
+        });
+
+      const w = btn.offsetWidth;
+      const h = btn.offsetHeight;
+      let left, top, tries = 0, ok = false;
+
+      while (!ok && tries < 200) {
+        left = Math.random() * (window.innerWidth  - w - 10) + 5;
+        top  = Math.random() * (window.innerHeight - h - 10) + 5;
+        ok = !occupied.some(z =>
+          left < z.x2 && left + w > z.x1 &&
+          top  < z.y2 && top  + h > z.y1
+        );
+        tries++;
+      }
+
       btn.style.position = 'fixed';
-      btn.style.left = Math.random() * maxX + 'px';
-      btn.style.top  = Math.random() * maxY + 'px';
+      btn.style.left = left + 'px';
+      btn.style.top  = top  + 'px';
     } else {
       naoClicks = 0;
       btn.style.position = '';
