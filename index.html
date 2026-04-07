@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uma perguntinha...</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:    #e8405a;
+      --blush:   #fce4ec;
+      --cream:   #fff8f0;
+      --warm:    #6b3a3a;
+      --accent:  #f48fb1;
+    }
+
+    body {
+      min-height: 100dvh;
+      background: var(--cream);
+      font-family: 'Lato', sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── TELA PRINCIPAL ── */
+    #page-main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 2rem 1.5rem;
+      gap: 2.5rem;
+      position: relative;
+    }
+
+    /* corações flutuantes de fundo */
+    .hearts-bg {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hearts-bg span {
+      position: absolute;
+      font-size: clamp(1rem, 3vw, 2rem);
+      opacity: 0.12;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0.12; }
+      100% { transform: translateY(-10vh)  rotate(20deg); opacity: 0; }
+    }
+
+    .question-wrap {
+      text-align: center;
+      z-index: 1;
+    }
+    .question-wrap .eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.75rem, 2.5vw, 1rem);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .question-wrap h1 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.6rem, 6vw, 3.2rem);
+      color: var(--warm);
+      line-height: 1.25;
+    }
+    .question-wrap h1 strong {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--rose);
+    }
+
+    .big-heart {
+      font-size: clamp(3rem, 12vw, 6rem);
+      animation: heartbeat 1.4s ease-in-out infinite;
+      z-index: 1;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15%       { transform: scale(1.18); }
+      30%       { transform: scale(1); }
+      45%       { transform: scale(1.1); }
+      60%       { transform: scale(1); }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 320px;
+      z-index: 1;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 999px;
+      padding: 0.95rem 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    button:active { transform: scale(0.96); }
+
+    .btn-sim {
+      background: var(--rose);
+      color: #fff;
+      box-shadow: 0 6px 24px #e8405a55;
+      font-style: italic;
+    }
+    .btn-sim:hover { box-shadow: 0 10px 32px #e8405a77; transform: translateY(-2px); }
+
+    .btn-obvio {
+      background: var(--warm);
+      color: var(--blush);
+      box-shadow: 0 4px 16px #6b3a3a44;
+    }
+    .btn-obvio:hover { box-shadow: 0 8px 24px #6b3a3a66; transform: translateY(-2px); }
+
+    .btn-nao {
+      background: transparent;
+      color: #b0808080;
+      font-size: clamp(0.8rem, 3vw, 0.95rem);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      padding: 0.6rem 1rem;
+      box-shadow: none;
+    }
+    .btn-nao:hover { color: #a06060; }
+
+    /* ── TELA TE AMO ── */
+    #page-teamo {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      background: var(--rose);
+      padding: 2rem;
+      text-align: center;
+      gap: 1.5rem;
+      animation: fadeIn 0.6s ease;
+    }
+    #page-teamo h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 14vw, 8rem);
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    #page-teamo p {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      color: #fce4eccc;
+      font-size: clamp(0.9rem, 3vw, 1.2rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .confetti-wrap {
+      font-size: 3rem;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── TELA NÃO ── */
+    #page-nao {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      background: var(--cream);
+      padding: 2rem;
+      text-align: center;
+      gap: 1.5rem;
+      animation: fadeIn 0.5s ease;
+    }
+    #page-nao img {
+      max-width: min(90vw, 360px);
+      border-radius: 1.5rem;
+      box-shadow: 0 12px 40px #0002;
+    }
+    #page-nao p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 4vw, 1.4rem);
+      color: var(--warm);
+    }
+    .btn-voltar {
+      margin-top: 0.5rem;
+      background: transparent;
+      color: var(--accent);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      border: 1.5px solid var(--accent);
+      border-radius: 999px;
+      padding: 0.5rem 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ TELA PRINCIPAL ══════════ -->
+<div id="page-main">
+  <div class="hearts-bg" id="hearts"></div>
+
+  <div class="big-heart">💗</div>
+
+  <div class="question-wrap">
+    <p class="eyebrow">uma perguntinha...</p>
+    <h1>quer passar a vida <strong>TODINHA</strong> comigo?</h1>
+  </div>
+
+  <div class="buttons">
+    <button class="btn-sim"  onclick="goSim()">sim ❤️</button>
+    <button class="btn-obvio" onclick="goObvio()">ÓBVIO 💍</button>
+    <button class="btn-nao"  onclick="goNao()">Não, tô de boas.</button>
+  </div>
+</div>
+
+<!-- ══════════ TELA: SIM ══════════ -->
+<div id="page-teamo">
+  <div class="confetti-wrap">🎊</div>
+  <h2>TE AMO.<br>VAMO! 🚀</h2>
+  <p>para sempre e mais um pouquinho</p>
+  <button class="btn-voltar" onclick="goBack()">← voltar</button>
+</div>
+
+<!-- ══════════ TELA: NÃO ══════════ -->
+<div id="page-nao">
+  <!--
+    👇 Cole aqui o link da sua imagem, por exemplo:
+       src="https://i.imgur.com/SEU-LINK.jpg"
+    ou se for um arquivo local salvo na mesma pasta do HTML:
+       src="reacao.jpg"
+  -->
+  <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" alt="reação" />
+  <p>tá bom então... 🥲</p>
+  <button class="btn-voltar" onclick="goBack()">← deixa eu tentar de novo</button>
+</div>
+
+<script>
+  // ── corações de fundo animados ──
+  const container = document.getElementById('hearts');
+  const emojis = ['💗','💓','💖','💕','🌸','✨'];
+  for (let i = 0; i < 18; i++) {
+    const s = document.createElement('span');
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.left     = Math.random() * 100 + 'vw';
+    s.style.animationDuration = (6 + Math.random() * 10) + 's';
+    s.style.animationDelay   = (Math.random() * 10) + 's';
+    s.style.fontSize = (1 + Math.random() * 2) + 'rem';
+    container.appendChild(s);
+  }
+
+  function show(id) {
+    ['page-main','page-teamo','page-nao'].forEach(p => {
+      document.getElementById(p).style.display = 'none';
+    });
+    const el = document.getElementById(id);
+    el.style.display = 'flex';
+  }
+
+  function goSim() {
+    show('page-teamo');
+  }
+
+  function goObvio() {
+    // abre a busca no Google em nova aba
+    window.open(
+      'https://www.google.com/search?q=Lugares+mais+bonitos+para+casar+com+o+amor+da+minha+vida',
+      '_blank'
+    );
+  }
+
+  function goNao() {
+    show('page-nao');
+  }
+
+  function goBack() {
+    show('page-main');
+  }
+</script>
+</body>
+</html>
